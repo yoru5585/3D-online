@@ -51,7 +51,7 @@ public class RoomListManager : MonoBehaviour
 
                 var session = roomList[i];
                 Debug.Log(session.Name);
-                tmp.SetInfo(session.Name, session.PlayerCount.ToString());
+                tmp.SetInfo(session.Name, session.PlayerCount.ToString(), session.MaxPlayers.ToString());
             }
             else
             {

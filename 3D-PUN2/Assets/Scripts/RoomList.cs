@@ -33,10 +33,10 @@ public class RoomList : MonoBehaviour
         }
     }
 
-    public void SetInfo(string roomName, string joinNum)
+    public void SetInfo(string roomName, string joinNum, string roomMaxNum)
     {
         roomNameText.text = roomName;
-        joinNumText.text = joinNum + " / 4";
+        joinNumText.text = joinNum + " / " + roomMaxNum;
         this.roomName = roomName;
         this.joinNum = int.Parse(joinNum);
     }

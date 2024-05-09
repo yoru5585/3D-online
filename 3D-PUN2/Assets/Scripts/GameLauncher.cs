@@ -48,15 +48,15 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         {
             Debug.Log("部屋に入るのに失敗しました");
         }
-        loadingImg.SetActive(false);
+
     }
 
-    public void CreateRoom(string roomName)
+    public void CreateRoom(string roomName, int playerNum)
     {
         loadingImg.SetActive(true);
         // ルームの参加人数を4人に設定する
         var roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 4;
+        roomOptions.MaxPlayers = playerNum;
         bool isSuccess = PhotonNetwork.CreateRoom(roomName, roomOptions, TypedLobby.Default);
         GetComponent<InfoPanel>().ShowRoomName(roomName);
         chatManager.SetUserName(playerInfo.playerName);
@@ -70,7 +70,6 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         {
             Debug.Log("部屋をつくるのに失敗しました");
         }
-        loadingImg.SetActive(false);
     }
 
     public void LeftRoom()
@@ -98,10 +97,10 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
         var position = new Vector3(0, 1, 0);
         myPlayerAvatar = PhotonNetwork.Instantiate("PlayerAvatar", position, Quaternion.identity);
-        GetComponent<InfoPanel>().ShowPlayerName();
 
         if (PhotonNetwork.IsMasterClient)
         {
+            Debug.Log("your masterclient");
             // PhotonNetwork.ServerTimestamp を使って現在のタイムスタンプを取得
             ExitGames.Client.Photon.Hashtable startTimeProps = new ExitGames.Client.Photon.Hashtable();
             startTimeProps["StartTime"] = PhotonNetwork.ServerTimestamp;
@@ -109,6 +108,18 @@ public class GameLauncher : MonoBehaviourPunCallbacks
             // ルームのカスタムプロパティとして開始時刻を設定
             PhotonNetwork.CurrentRoom.SetCustomProperties(startTimeProps);
         }
+
+        // ルームが満員になったら、以降そのルームへの参加を不許可にする
+        if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+        }
+
+        GetComponent<InfoPanel>().InfoPanelSetup();
+        GetComponent<InfoPanel>().ShowPlayerName();
+        GetComponent<InfoPanel>().InteractableStartButton();
+        loadingImg.SetActive(false);
+
     }
 
     // 他プレイヤーがルームへ参加した時に呼ばれるコールバック
@@ -116,7 +127,9 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     {
         Debug.Log($"{newPlayer.NickName}が参加しました");
         GetComponent<InfoPanel>().ShowPlayerName();
-        
+        GetComponent<InfoPanel>().ShowPlayerNum();
+        GetComponent<InfoPanel>().InteractableStartButton();
+
     }
 
     // 他プレイヤーがルームから退出した時に呼ばれるコールバック
@@ -124,7 +137,9 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     {
         Debug.Log($"{otherPlayer.NickName}が退出しました");
         GetComponent<InfoPanel>().ShowPlayerName();
-        
+        GetComponent<InfoPanel>().ShowPlayerNum();
+        GetComponent<InfoPanel>().InteractableStartButton();
+
     }
 
     //ルームが更新されたとき
