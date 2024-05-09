@@ -109,15 +109,9 @@ public class GameLauncher : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.SetCustomProperties(startTimeProps);
         }
 
-        // ルームが満員になったら、以降そのルームへの参加を不許可にする
-        if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
-        {
-            PhotonNetwork.CurrentRoom.IsOpen = false;
-        }
-
         GetComponent<InfoPanel>().InfoPanelSetup();
         GetComponent<InfoPanel>().ShowPlayerName();
-        GetComponent<InfoPanel>().InteractableStartButton();
+        GetComponent<InfoPanel>().InteractableStartButton(PhotonNetwork.IsMasterClient);
         loadingImg.SetActive(false);
 
     }
@@ -128,7 +122,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         Debug.Log($"{newPlayer.NickName}が参加しました");
         GetComponent<InfoPanel>().ShowPlayerName();
         GetComponent<InfoPanel>().ShowPlayerNum();
-        GetComponent<InfoPanel>().InteractableStartButton();
+        GetComponent<InfoPanel>().InteractableStartButton(PhotonNetwork.IsMasterClient);
 
     }
 
@@ -138,7 +132,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         Debug.Log($"{otherPlayer.NickName}が退出しました");
         GetComponent<InfoPanel>().ShowPlayerName();
         GetComponent<InfoPanel>().ShowPlayerNum();
-        GetComponent<InfoPanel>().InteractableStartButton();
+        GetComponent<InfoPanel>().InteractableStartButton(PhotonNetwork.IsMasterClient);
 
     }
 

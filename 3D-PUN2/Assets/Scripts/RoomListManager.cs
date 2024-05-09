@@ -50,7 +50,7 @@ public class RoomListManager : MonoBehaviour
                 Debug.Log($"ルーム内容更新: {roomList[i].Name}({roomList[i].PlayerCount}/{roomList[i].MaxPlayers})");
 
                 var session = roomList[i];
-                Debug.Log(session.Name);
+                //Debug.Log(session.Name);
                 tmp.SetInfo(session.Name, session.PlayerCount.ToString(), session.MaxPlayers.ToString());
             }
             else

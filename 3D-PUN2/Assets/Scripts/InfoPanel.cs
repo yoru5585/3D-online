@@ -16,6 +16,8 @@ public class InfoPanel : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject namePrefab;
 
+    [SerializeField] Transform namePrefabParent;
+
     [SerializeField] Button startButton;
 
     public void ShowPlayerName()
@@ -28,7 +30,24 @@ public class InfoPanel : MonoBehaviourPunCallbacks
         int index = 0;
         foreach (var player in PhotonNetwork.PlayerList)
         {
-            playerName[index].text = player.NickName;
+            if (player.NickName == PhotonNetwork.LocalPlayer.NickName)
+            {
+                playerName[index].text = $"<color=#{0x13FC03FF:X}>{player.NickName}</color>";
+            }
+            else
+            {
+                playerName[index].text = player.NickName;
+            }
+
+            if (player.IsMasterClient)
+            {
+                playerName[index].gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            }
+            else
+            {
+                playerName[index].gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            }
+
             index++;
         }
     }
@@ -40,11 +59,17 @@ public class InfoPanel : MonoBehaviourPunCallbacks
 
     public void InfoPanelSetup()
     {
-        playerName.Clear();
-        playerName.Add(namePrefab.GetComponent<TextMeshProUGUI>());
-        for (int i = 1; i < PhotonNetwork.CurrentRoom.MaxPlayers; i++)
+        //‰Šú‰»
+        foreach (var tmp in playerName)
         {
-            var obj = Instantiate(namePrefab);
+            Destroy(tmp.gameObject);
+        }
+        playerName.Clear();
+
+        //’Ç‰Á
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.MaxPlayers; i++)
+        {
+            var obj = Instantiate(namePrefab, namePrefabParent);
             playerName.Add(obj.GetComponent<TextMeshProUGUI>());
         }
         ShowPlayerNum();
@@ -55,16 +80,14 @@ public class InfoPanel : MonoBehaviourPunCallbacks
         maxPlayerNum.text = PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
     }
 
-    public void InteractableStartButton()
+    public void InteractableStartButton(bool isMasterClient)
     {
-        if (PhotonNetwork.IsMasterClient)
+        //Debug.Log("isMasterClient:"+isMasterClient);
+        //startButton.interactable = isMasterClient;
+        if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
         {
-            startButton.interactable = true;
+            startButton.interactable = isMasterClient;
         }
-        else
-        {
-            startButton.interactable = false;
-        }
-        
+
     }
 }

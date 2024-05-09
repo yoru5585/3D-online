@@ -17,11 +17,12 @@ public class RoomList : MonoBehaviour
     Button joinButton;
 
     int joinNum = 0;
+    int joinMaxNum = 0;
     string roomName;
 
     void Update()
     {
-        if (joinNum == 4)
+        if (joinNum == joinMaxNum)
         {
             joinNumText.color = Color.red;
             joinButton.interactable = false;
@@ -39,6 +40,7 @@ public class RoomList : MonoBehaviour
         joinNumText.text = joinNum + " / " + roomMaxNum;
         this.roomName = roomName;
         this.joinNum = int.Parse(joinNum);
+        this.joinMaxNum = int.Parse(roomMaxNum);
     }
 
     public string GetRoomName()
