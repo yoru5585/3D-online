@@ -139,7 +139,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener
         {
             if (messages[i].ToString().Contains("/"))
             {
-                GetComponent<Command>().OnReceiveCommand(messages[i].ToString());
+                GetComponent<Command>().OnCommandReceived(messages[i].ToString());
             }
             chatDesplay.text += $"{senders[i]}:\n{messages[i]}\n";
         }

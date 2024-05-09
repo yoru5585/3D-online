@@ -17,10 +17,20 @@ public class CreateRoom : MonoBehaviour
 
     public void CheckFormat(string textIn)
     {
+        //参加人数が正しい数値か確認
         bool result = int.TryParse(playerNumInputField.text, out num);
-        if (!result)
+        if (!result || num < 2)
         {
             ConfirmWindow_s.SetWindow("ConWinDatas/ConWinData8");
+        }
+    }
+
+    public void CheckExistRoom(string input)
+    {
+        //既に同じ名前の部屋が存在しないか確認
+        if (GetComponent<RoomListManager>().GetRoomList(input) != null)
+        {
+            ConfirmWindow_s.SetWindow("ConWinDatas/ConWinData9");
         }
     }
 }

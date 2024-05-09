@@ -11,7 +11,7 @@ public class RoomListManager : MonoBehaviour
 
     [SerializeField] GameObject RoomPrefab;
 
-    RoomList getRoomList(string roomName)
+    public RoomList GetRoomList(string roomName)
     {
         for (int i = 0; i < RoomParent.childCount; i++)
         {
@@ -29,7 +29,7 @@ public class RoomListManager : MonoBehaviour
         Debug.Log("変更されたルーム数："+roomList.Count);
         for (int i = 0; i < roomList.Count; i++)
         {
-            RoomList tmp = getRoomList(roomList[i].Name);
+            RoomList tmp = GetRoomList(roomList[i].Name);
             if (tmp == null)
             {
                 //新規作成ルーム確定
@@ -60,4 +60,6 @@ public class RoomListManager : MonoBehaviour
             }
         }
     }
+
+    
 }

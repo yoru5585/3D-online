@@ -26,7 +26,7 @@ public class Command : MonoBehaviour
         }
     }
 
-    public void OnReceiveCommand(string mess)
+    public void OnCommandReceived(string mess)
     {
         switch (mess)
         {

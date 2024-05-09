@@ -6,7 +6,7 @@ using TMPro;
 using Photon.Pun;
 
 
-public class InfoPanel : MonoBehaviourPunCallbacks
+public class InfoPanel : MonoBehaviour
 {
     [SerializeField] List<TextMeshProUGUI> playerName;
 
