@@ -6653,14 +6653,26 @@ PrefabInstance:
     - target: {fileID: 991332181425049161, guid: 1a6058bca639bf448a93219091e59707, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 803052166}
     - target: {fileID: 991332181425049161, guid: 1a6058bca639bf448a93219091e59707, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
+      objectReference: {fileID: 803052166}
+    - target: {fileID: 991332181425049161, guid: 1a6058bca639bf448a93219091e59707, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SubmitPrivateChat
+      objectReference: {fileID: 0}
+    - target: {fileID: 991332181425049161, guid: 1a6058bca639bf448a93219091e59707, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SubmitPublicChat
       objectReference: {fileID: 0}
     - target: {fileID: 1174877912636727912, guid: 1a6058bca639bf448a93219091e59707, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 803052166}
+    - target: {fileID: 1174877912636727912, guid: 1a6058bca639bf448a93219091e59707, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TypePublicChatOnValueChange
       objectReference: {fileID: 0}
     - target: {fileID: 1857527766032017017, guid: 1a6058bca639bf448a93219091e59707, type: 3}
       propertyPath: m_SizeDelta.y
@@ -6692,11 +6704,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3466310714294096298, guid: 1a6058bca639bf448a93219091e59707, type: 3}
       propertyPath: m_fontSize
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3466310714294096298, guid: 1a6058bca639bf448a93219091e59707, type: 3}
       propertyPath: m_fontSizeBase
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 4616494074146181979, guid: 1a6058bca639bf448a93219091e59707, type: 3}
       propertyPath: m_SizeDelta.x
@@ -6829,6 +6841,10 @@ PrefabInstance:
     - target: {fileID: 7143124659441216304, guid: 1a6058bca639bf448a93219091e59707, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 803052166}
+    - target: {fileID: 7143124659441216304, guid: 1a6058bca639bf448a93219091e59707, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReceiverOnValueChange
       objectReference: {fileID: 0}
     - target: {fileID: 7369246619181111214, guid: 1a6058bca639bf448a93219091e59707, type: 3}
       propertyPath: m_AnchorMax.x

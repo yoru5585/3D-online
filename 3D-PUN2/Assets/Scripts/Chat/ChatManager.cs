@@ -72,7 +72,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener
         privateReceiver = valueIn;
     }
 
-    public void SumitPrivateChat()
+    public void SubmitPrivateChat()
     {
         if (privateReceiver != "")
         {
