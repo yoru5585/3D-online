@@ -124,6 +124,8 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         GetComponent<InfoPanel>().ShowPlayerNum();
         GetComponent<InfoPanel>().InteractableStartButton(PhotonNetwork.IsMasterClient);
 
+        chatManager.OnUserSubscribed("", newPlayer.NickName);
+
     }
 
     // 他プレイヤーがルームから退出した時に呼ばれるコールバック
@@ -133,6 +135,8 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         GetComponent<InfoPanel>().ShowPlayerName();
         GetComponent<InfoPanel>().ShowPlayerNum();
         GetComponent<InfoPanel>().InteractableStartButton(PhotonNetwork.IsMasterClient);
+
+        chatManager.OnUserUnsubscribed("", otherPlayer.NickName);
 
     }
 

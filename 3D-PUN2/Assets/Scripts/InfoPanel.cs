@@ -25,6 +25,8 @@ public class InfoPanel : MonoBehaviourPunCallbacks
         foreach (TextMeshProUGUI text in playerName)
         {
             text.text = ".......";
+            text.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+
         }
 
         int index = 0;

@@ -61,6 +61,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener
         if (privateReceiver == "")
         {
             chatClient.PublishMessage(channel, currentChat);
+            GetComponent<Command>().OnChatSubmitted(currentChat);
             chatField.text = "";
             currentChat = "";
             Debug.Log("全員にメッセージを送りました");
@@ -81,6 +82,13 @@ public class ChatManager : MonoBehaviour, IChatClientListener
             currentChat = "";
             Debug.Log(privateReceiver + "にメッセージを送りました");
         }
+    }
+
+    public void SendSystemLog(string log)
+    {
+        chatClient.PublishMessage(channel, log);
+        chatField.text = "";
+        currentChat = "";
     }
 
     private void Update()
@@ -129,7 +137,11 @@ public class ChatManager : MonoBehaviour, IChatClientListener
         Debug.Log("メッセージを受信しました");
         for (int i = 0; i < senders.Length; i++)
         {
-            chatDesplay.text += $"{senders[i]}: {messages[i]}\n";
+            if (messages[i].ToString().Contains("/"))
+            {
+                GetComponent<Command>().OnReceiveCommand(messages[i].ToString());
+            }
+            chatDesplay.text += $"{senders[i]}:\n{messages[i]}\n";
         }
     }
 
@@ -137,7 +149,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener
     public void OnPrivateMessage(string sender, object message, string channelName)
     {
         Debug.Log("プライベートメッセージを受信しました");
-        chatDesplay.text += $"<color=#{0xFF0000FF:X}>{sender}</color>: {message}\n";
+        chatDesplay.text += $"<color=#{0xFF0000FF:X}>{sender}</color>:\n{message}\n";
     }
 
     public void OnStatusUpdate(string user, int status, bool gotMessage, object message)
@@ -157,14 +169,16 @@ public class ChatManager : MonoBehaviour, IChatClientListener
     //他のユーザーが参加したとき
     public void OnUserSubscribed(string channel, string user)
     {
-        Debug.Log("なぜか実行されない");
-        chatDesplay.text += $"<color=#{0x13FC03FF:X}>{user}</color> が参加しました。\n";
+        //なぜかコールバックされない
+        //無理矢理実行させている
+        Debug.Log(user + "が参加しました。"); 
+        chatDesplay.text += $"<color=#{0x2A48F5FF:X}>【システム】</color><color=#{0x13FC03FF:X}>{user}</color><color=#{0x2A48F5FF:X}> さんが参加しました。\n</color>";
     }
     //他のユーザーが退会したとき
     public void OnUserUnsubscribed(string channel, string user)
     {
         Debug.Log(user + "が退出しました。");
-        chatDesplay.text += $"<color=#{0x13FC03FF:X}>{user}</color> が退出しました。\n";
+        chatDesplay.text += $"<color=#{0x2A48F5FF:X}>【システム】</color><color=#{0x13FC03FF:X}>{user}</color><color=#{0x2A48F5FF:X}> さんが退出しました。\n</color>";
     }
 
 }
