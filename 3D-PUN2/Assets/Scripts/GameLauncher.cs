@@ -12,10 +12,13 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     [SerializeField] GameObject myPlayerAvatar;
 
     [SerializeField] ChatManager chatManager;
+
+    [SerializeField] GameObject loadingImg;
     private void Awake()
     {
         // PhotonServerSettingsの設定内容を使ってマスターサーバーへ接続する
         PhotonNetwork.ConnectUsingSettings();
+        loadingImg.SetActive(true);
     }
 
     private void Start()
@@ -30,6 +33,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
 
     public void JoinRoom(string roomName)
     {
+        loadingImg.SetActive(true);
         // "Room"という名前のルームに参加する
         bool isSuccess = PhotonNetwork.JoinRoom(roomName);
         GetComponent<InfoPanel>().ShowRoomName(roomName);
@@ -44,10 +48,12 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         {
             Debug.Log("部屋に入るのに失敗しました");
         }
+        loadingImg.SetActive(false);
     }
 
     public void CreateRoom(string roomName)
     {
+        loadingImg.SetActive(true);
         // ルームの参加人数を4人に設定する
         var roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 4;
@@ -64,6 +70,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         {
             Debug.Log("部屋をつくるのに失敗しました");
         }
+        loadingImg.SetActive(false);
     }
 
     public void LeftRoom()
@@ -82,6 +89,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         Debug.Log("マスターサーバーへの接続に成功しました。");
         //ロビーに参加する
         PhotonNetwork.JoinLobby();
+        loadingImg.SetActive(false);
     }
 
     // ゲームサーバーへの接続が成功した時に呼ばれるコールバック

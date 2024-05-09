@@ -17,9 +17,11 @@ public class ChatManager : MonoBehaviour, IChatClientListener
     [SerializeField] TMP_InputField chatField;
     [SerializeField] TextMeshProUGUI chatDesplay;
     [SerializeField] Button sendButton;
+    [SerializeField] GameObject waitText;
 
-    private void Start()
+    private void OnEnable()
     {
+        waitText.SetActive(true);
         ChatStart();
     }
 
@@ -112,6 +114,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener
     {
         Debug.Log("Connected");
         sendButton.interactable = true;
+        waitText.SetActive(false);
         SubToChat();
     }
 
@@ -151,14 +154,17 @@ public class ChatManager : MonoBehaviour, IChatClientListener
     {
 
     }
+    //他のユーザーが参加したとき
     public void OnUserSubscribed(string channel, string user)
     {
-        
+        Debug.Log("なぜか実行されない");
+        chatDesplay.text += $"<color=#{0x13FC03FF:X}>{user}</color> が参加しました。\n";
     }
-
+    //他のユーザーが退会したとき
     public void OnUserUnsubscribed(string channel, string user)
     {
-
+        Debug.Log(user + "が退出しました。");
+        chatDesplay.text += $"<color=#{0x13FC03FF:X}>{user}</color> が退出しました。\n";
     }
 
 }
