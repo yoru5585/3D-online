@@ -26,7 +26,7 @@ public class RoomListManager : MonoBehaviour
     
     public void SetRoomList(List<RoomInfo> roomList)
     {
-        Debug.Log("変更されたルーム数："+roomList.Count);
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>変更されたルーム数：{roomList.Count}");
         for (int i = 0; i < roomList.Count; i++)
         {
             RoomList tmp = GetRoomList(roomList[i].Name);
@@ -47,7 +47,7 @@ public class RoomListManager : MonoBehaviour
 
             if (!roomList[i].RemovedFromList)
             {
-                Debug.Log($"ルーム内容更新: {roomList[i].Name}({roomList[i].PlayerCount}/{roomList[i].MaxPlayers})");
+                Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>ルーム内容更新: {roomList[i].Name}({roomList[i].PlayerCount}/{roomList[i].MaxPlayers})");
 
                 var session = roomList[i];
                 //Debug.Log(session.Name);
@@ -55,7 +55,7 @@ public class RoomListManager : MonoBehaviour
             }
             else
             {
-                Debug.Log($"ルーム削除: {roomList[i].Name}");
+                Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>ルーム削除: {roomList[i].Name}");
                 Destroy(tmp.gameObject);
             }
         }

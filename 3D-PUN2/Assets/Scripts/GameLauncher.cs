@@ -42,7 +42,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
 
         if (isSuccess)
         {
-            Debug.Log(roomName + "：部屋に入りました");
+            Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>{roomName}：部屋に入りました");
         }
         else
         {
@@ -64,7 +64,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
 
         if (isSuccess)
         {
-            Debug.Log(roomName + "：部屋を作りました");
+            Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>部屋を作りました。：{roomName}");
         }
         else
         {
@@ -75,7 +75,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     public void LeftRoom()
     {
         //部屋から抜ける
-        Debug.Log("部屋から抜けました");
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>部屋から退出しました。");
         Destroy(myPlayerAvatar);
         PhotonNetwork.LeaveRoom();
         chatManager.ClearChatDisplay();
@@ -85,7 +85,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     // マスターサーバーへの接続が成功した時に呼ばれるコールバック
     public override void OnConnectedToMaster()
     {
-        Debug.Log("マスターサーバーへの接続に成功しました。");
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>マスターサーバーへの接続に成功しました。");
         //ロビーに参加する
         PhotonNetwork.JoinLobby();
         loadingImg.SetActive(false);
@@ -100,7 +100,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsMasterClient)
         {
-            Debug.Log("your masterclient");
+            Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>あなたがマスタークライアントです。");
             // PhotonNetwork.ServerTimestamp を使って現在のタイムスタンプを取得
             ExitGames.Client.Photon.Hashtable startTimeProps = new ExitGames.Client.Photon.Hashtable();
             startTimeProps["StartTime"] = PhotonNetwork.ServerTimestamp;
@@ -119,7 +119,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     // 他プレイヤーがルームへ参加した時に呼ばれるコールバック
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Debug.Log($"{newPlayer.NickName}が参加しました");
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>{newPlayer.NickName}が参加しました。");
         GetComponent<InfoPanel>().ShowPlayerName();
         GetComponent<InfoPanel>().ShowPlayerNum();
         GetComponent<InfoPanel>().InteractableStartButton(PhotonNetwork.IsMasterClient);
@@ -131,7 +131,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     // 他プレイヤーがルームから退出した時に呼ばれるコールバック
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        Debug.Log($"{otherPlayer.NickName}が退出しました");
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>{otherPlayer.NickName}が退出しました。");
         GetComponent<InfoPanel>().ShowPlayerName();
         GetComponent<InfoPanel>().ShowPlayerNum();
         GetComponent<InfoPanel>().InteractableStartButton(PhotonNetwork.IsMasterClient);
@@ -143,17 +143,17 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     //ルームが更新されたとき
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-        Debug.Log("ルームが更新されました。");
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>ルームが更新されました。");
         GetComponent<RoomListManager>().SetRoomList(roomList);
     }
 
     public override void OnJoinedLobby()
     {
-        Debug.Log("ロビーに参加しました。");
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>ロビーに参加しました。");
     }
 
     public override void OnLeftLobby()
     {
-        Debug.Log("ロビーから抜けました。");
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>ロビーから抜けました。");
     }
 }

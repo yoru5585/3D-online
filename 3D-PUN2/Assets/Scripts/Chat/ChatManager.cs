@@ -9,19 +9,28 @@ using TMPro;
 public class ChatManager : MonoBehaviour, IChatClientListener
 {
     ChatClient chatClient;
+    ChatLog chatLog;
+    Command command;
     string username;
     string channel;
     bool isConnected;
     string currentChat;
     string privateReceiver = "";
     [SerializeField] TMP_InputField chatField;
-    [SerializeField] TextMeshProUGUI chatDesplay;
+    [SerializeField] TextMeshProUGUI chatDisplay;
     [SerializeField] Button sendButton;
     [SerializeField] GameObject waitText;
+
+    private void Start()
+    {
+        chatLog = GetComponent<ChatLog>();
+        command = GetComponent<Command>();
+    }
 
     private void OnEnable()
     {
         waitText.SetActive(true);
+        sendButton.interactable = false;
         ChatStart();
     }
 
@@ -38,17 +47,28 @@ public class ChatManager : MonoBehaviour, IChatClientListener
     public void ChatStart()
     {
         isConnected = true;
-        sendButton.interactable = false;
         chatClient = new ChatClient(this);
         //chatClient.ChatRegion = "jp";
         chatClient.Connect(PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat, PhotonNetwork.AppVersion, new Photon.Chat.AuthenticationValues(username));
-        Debug.Log("Connectiong");
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>チャットサーバーに接続しています......");
     }
 
     public void SubToChat()
     {
-        Debug.Log("チャンネルに参加しました");
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>チャンネルに参加しました。");
         chatClient.Subscribe(new string[] { channel});
+        //自分がマスタークライアントなら
+        if (PhotonNetwork.IsMasterClient)
+        {
+            //カスタムプロパティを設定
+            chatLog.SetupProperty();
+        }
+        //マスタークライアントではない
+        else
+        {
+            //プロパティから過去のチャットログを取得
+            chatDisplay.text = chatLog.GetChatlog();
+        }
     }
 
     public void TypePublicChatOnValueChange(string ChatIn)
@@ -61,10 +81,10 @@ public class ChatManager : MonoBehaviour, IChatClientListener
         if (privateReceiver == "")
         {
             chatClient.PublishMessage(channel, currentChat);
-            GetComponent<Command>().OnChatSubmitted(currentChat);
+            command.OnChatSubmitted(currentChat);
             chatField.text = "";
             currentChat = "";
-            Debug.Log("全員にメッセージを送りました");
+            Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>全員にメッセージを送りました。");
         }
     }
 
@@ -80,7 +100,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener
             chatClient.SendPrivateMessage(privateReceiver, currentChat);
             chatField.text = "";
             currentChat = "";
-            Debug.Log(privateReceiver + "にメッセージを送りました");
+            Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>{privateReceiver}にメッセージを送りました。");
         }
     }
 
@@ -89,6 +109,11 @@ public class ChatManager : MonoBehaviour, IChatClientListener
         chatClient.PublishMessage(channel, log);
         chatField.text = "";
         currentChat = "";
+    }
+
+    public string GetChatDisplay()
+    {
+        return chatDisplay.text;
     }
 
     private void Update()
@@ -103,7 +128,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener
 
     public void ClearChatDisplay()
     {
-        chatDesplay.text = "";
+        chatDisplay.text = "";
         //チャンネルから移動
         chatClient.Unsubscribe(new string[] { channel });
     }
@@ -120,7 +145,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener
 
     public void OnConnected()
     {
-        Debug.Log("Connected");
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>チャットサーバーに接続しました。");
         sendButton.interactable = true;
         waitText.SetActive(false);
         SubToChat();
@@ -134,22 +159,29 @@ public class ChatManager : MonoBehaviour, IChatClientListener
     //メッセージを取得したとき
     public void OnGetMessages(string channelName, string[] senders, object[] messages)
     {
-        Debug.Log("メッセージを受信しました");
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>メッセージを受信しました。");
         for (int i = 0; i < senders.Length; i++)
         {
             if (messages[i].ToString().Contains("/"))
             {
-                GetComponent<Command>().OnCommandReceived(messages[i].ToString());
+                command.OnCommandReceived(messages[i].ToString());
             }
-            chatDesplay.text += $"{senders[i]}:\n{messages[i]}\n";
+            chatDisplay.text += $"{senders[i]}:\n{messages[i]}\n";
+
+            //自分がマスタークライアントならバッファにメッセージを保管しておく
+            if (PhotonNetwork.IsMasterClient)
+            {
+                chatLog.AddChatTextBuffer($"{senders[i]}:\n{messages[i]}\n");
+            }
         }
+        
     }
 
     //プライベートメッセージを取得したとき
     public void OnPrivateMessage(string sender, object message, string channelName)
     {
-        Debug.Log("プライベートメッセージを受信しました");
-        chatDesplay.text += $"<color=#{0xFF0000FF:X}>{sender}</color>:\n{message}\n";
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>プライベートメッセージを受信しました。");
+        chatDisplay.text += $"<color=#{0xFF0000FF:X}>{sender}</color>:\n{message}\n";
     }
 
     public void OnStatusUpdate(string user, int status, bool gotMessage, object message)
@@ -157,6 +189,7 @@ public class ChatManager : MonoBehaviour, IChatClientListener
 
     }
 
+    //自分がチャンネルに参加したとき
     public void OnSubscribed(string[] channels, bool[] results)
     {
         
@@ -166,19 +199,25 @@ public class ChatManager : MonoBehaviour, IChatClientListener
     {
 
     }
-    //他のユーザーが参加したとき
+    //他のユーザーがルームに参加したとき（本来はチャットチャンネルに参加したとき）
     public void OnUserSubscribed(string channel, string user)
     {
         //なぜかコールバックされない
-        //無理矢理実行させている
-        Debug.Log(user + "が参加しました。"); 
-        chatDesplay.text += $"<color=#{0x2A48F5FF:X}>【システム】</color><color=#{0x13FC03FF:X}>{user}</color><color=#{0x2A48F5FF:X}> さんが参加しました。\n</color>";
+        //gameLauncherから実行させている
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>{user} が参加しました。"); 
+        chatDisplay.text += $"<color=#{0x2A48F5FF:X}>【システム】</color><color=#{0x13FC03FF:X}>{user}</color><color=#{0x2A48F5FF:X}> さんが参加しました。\n</color>";
+        //自分がマスタークライアントならルームプロパティを更新する
+        if (PhotonNetwork.IsMasterClient)
+        {
+            chatLog.AddChatTextBuffer($"<color=#{0x2A48F5FF:X}>【システム】</color><color=#{0x13FC03FF:X}>{user}</color><color=#{0x2A48F5FF:X}> さんが参加しました。\n</color>");
+            chatLog.SetChatlog();
+        }
     }
-    //他のユーザーが退会したとき
+    //他のユーザーがルームから退出したとき（本来はチャットチャンネルから退出したとき）
     public void OnUserUnsubscribed(string channel, string user)
     {
-        Debug.Log(user + "が退出しました。");
-        chatDesplay.text += $"<color=#{0x2A48F5FF:X}>【システム】</color><color=#{0x13FC03FF:X}>{user}</color><color=#{0x2A48F5FF:X}> さんが退出しました。\n</color>";
+        Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>{user} が退出しました。");
+        chatDisplay.text += $"<color=#{0x2A48F5FF:X}>【システム】</color><color=#{0x13FC03FF:X}>{user}</color><color=#{0x2A48F5FF:X}> さんが退出しました。\n</color>";
     }
 
 }

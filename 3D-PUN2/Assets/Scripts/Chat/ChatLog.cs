@@ -5,24 +5,34 @@ using Photon.Pun;
 using Photon.Chat;
 using ExitGames.Client.Photon;
 
-public class ChatLog : MonoBehaviourPunCallbacks, IPunObservable
+public class ChatLog : MonoBehaviourPunCallbacks
 {
-    string textlog;
+    ExitGames.Client.Photon.Hashtable hashtable;
+    string chatTextBuffer;
 
-    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public void AddChatTextBuffer(string mess)
     {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(textlog);
-        }
-        else
-        {
-            textlog = stream.ReceiveNext().ToString();
-        }
+        //Debug.Log(mess);
+        chatTextBuffer += mess;
+    }
+    public void SetChatlog()
+    {
+        hashtable["chatlog"] = chatTextBuffer;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
     }
 
-    public void SetTextlog(string textlog)
+    public string GetChatlog()
     {
-        this.textlog = textlog;
+        string chatlog = (PhotonNetwork.CurrentRoom.CustomProperties["chatlog"] is string value) ? value : "";
+        //Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties["chatlog"]);
+        return chatlog;
+    }
+
+    public void SetupProperty()
+    {
+        //カスタムプロパティを設定
+        hashtable = new ExitGames.Client.Photon.Hashtable();
+        hashtable["chatlog"] = "";
+        PhotonNetwork.CurrentRoom.SetCustomProperties(hashtable);
     }
 }
