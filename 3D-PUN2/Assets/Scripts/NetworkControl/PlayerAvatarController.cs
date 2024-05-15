@@ -6,7 +6,6 @@ using Photon.Realtime;
 
 public class PlayerAvatarController : MonoBehaviourPunCallbacks
 {
-    private CharacterController characterController;
     // プレイヤー名のネットワークプロパティを定義する
 
     [SerializeField]
@@ -14,10 +13,6 @@ public class PlayerAvatarController : MonoBehaviourPunCallbacks
 
 	bool isStop = false;
 
-    private void Awake()
-    {
-        characterController = GetComponent<CharacterController>();
-    }
 
     private void Start()
     {

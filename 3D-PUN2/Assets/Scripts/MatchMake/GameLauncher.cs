@@ -97,6 +97,19 @@ public class GameLauncher : MonoBehaviourPunCallbacks
 
     }
 
+    public void SetPlayerID()
+    {
+        int index = 0;
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            if (player == PhotonNetwork.LocalPlayer)
+            {
+                playerInfo.playerID = index;
+            }
+            index++;
+        }
+    }
+
     public void LeftRoom()
     {
         //•”‰®‚©‚ç”²‚¯‚é
