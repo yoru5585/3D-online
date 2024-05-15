@@ -10,8 +10,15 @@ public class MatchmakingManager : MonoBehaviour
     [SerializeField] GameObject SettingBG;
     [SerializeField] GameObject WaitingBG;
 
-    [SerializeField] GameObject InfoPanel;
-    [SerializeField] GameObject ChatPanel;
+    GameObject RoomInfoPanel;
+    GameObject ChatPanel;
+
+    private void Start()
+    {
+        RoomInfoPanel = GameObject.FindGameObjectWithTag("RoomInfoPanel").transform.GetChild(0).gameObject;
+        ChatPanel = GameObject.FindGameObjectWithTag("ChatPanel").transform.GetChild(0).gameObject;
+    }
+
     public void RoomSettingButton()
     {
         ModeSelect.SetActive(false);
@@ -47,19 +54,19 @@ public class MatchmakingManager : MonoBehaviour
     public void InfoButton()
     {
         ChatPanel.SetActive(false);
-        if (InfoPanel.activeSelf)
+        if (RoomInfoPanel.activeSelf)
         {
-            InfoPanel.SetActive(false);
+            RoomInfoPanel.SetActive(false);
         }
         else
         {
-            InfoPanel.SetActive(true);
+            RoomInfoPanel.SetActive(true);
         }
     }
 
     public void ChatButton()
     {
-        InfoPanel.SetActive(false);
+        RoomInfoPanel.SetActive(false);
         if (ChatPanel.activeSelf)
         {
             ChatPanel.SetActive(false);

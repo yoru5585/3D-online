@@ -18,7 +18,6 @@ public class InfoPanel : MonoBehaviour
 
     [SerializeField] Transform namePrefabParent;
 
-    [SerializeField] Button startButton;
 
     public void ShowPlayerName()
     {
@@ -80,16 +79,5 @@ public class InfoPanel : MonoBehaviour
     public void ShowPlayerNum()
     {
         maxPlayerNum.text = PhotonNetwork.CurrentRoom.PlayerCount + " / " + PhotonNetwork.CurrentRoom.MaxPlayers;
-    }
-
-    public void InteractableStartButton(bool isMasterClient)
-    {
-        //Debug.Log("isMasterClient:"+isMasterClient);
-        //startButton.interactable = isMasterClient;
-        if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
-        {
-            startButton.interactable = isMasterClient;
-        }
-
     }
 }

@@ -8,7 +8,7 @@ using ExitGames.Client.Photon;
 public class ChatLog : MonoBehaviourPunCallbacks
 {
     ExitGames.Client.Photon.Hashtable hashtable;
-    string chatTextBuffer;
+    public string chatTextBuffer;
 
     public void AddChatTextBuffer(string mess)
     {

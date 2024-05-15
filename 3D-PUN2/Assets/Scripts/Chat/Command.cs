@@ -6,10 +6,10 @@ using Photon.Realtime;
 
 public class Command : MonoBehaviour
 {
-    GameObject Scripts;
+    [SerializeField] InfoPanel infoPanel;
     private void Start()
     {
-        Scripts = GameObject.Find("Scripts");
+
     }
     public void OnChatSubmitted(string mess)
     {
@@ -31,8 +31,7 @@ public class Command : MonoBehaviour
         switch (mess)
         {
             case "/MasterClient Request":
-                Scripts.GetComponent<InfoPanel>().InteractableStartButton(PhotonNetwork.IsMasterClient);
-                Scripts.GetComponent<InfoPanel>().ShowPlayerName();
+                infoPanel.ShowPlayerName();
                 break;
             default:
                 break;

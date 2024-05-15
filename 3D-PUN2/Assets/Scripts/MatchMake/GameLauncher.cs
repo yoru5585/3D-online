@@ -9,11 +9,13 @@ public class GameLauncher : MonoBehaviourPunCallbacks
 {
     [SerializeField] PlayerInfo_s playerInfo;
 
-    [SerializeField] GameSetting gameSetting;
-
     [SerializeField] GameObject loadingImg;
 
-    [SerializeField] ChatManager chatManager;
+    [SerializeField] Button gameStartButton;
+
+    [HideInInspector] public ChatManager chatManager;
+
+    [HideInInspector] public InfoPanel infoPanel;
 
     GameObject myPlayerAvatar;
 
@@ -28,6 +30,9 @@ public class GameLauncher : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        chatManager = GameObject.FindGameObjectWithTag("ChatPanel").GetComponent<ChatManager>();
+        infoPanel = GameObject.FindGameObjectWithTag("RoomInfoPanel").GetComponent<InfoPanel>();
+
         // 未設定の場合ランダムなプレイヤー名を設定する
         if (playerInfo.playerName == "")
         {
@@ -39,15 +44,17 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     public void JoinRoom(string roomName)
     {
         loadingImg.SetActive(true);
-        // "Room"という名前のルームに参加する
+        //ルームに参加する
         bool isSuccess = PhotonNetwork.JoinRoom(roomName);
-        GetComponent<InfoPanel>().ShowRoomName(roomName);
-        chatManager.SetUserName(playerInfo.playerName);
-        chatManager.SetChannel(roomName);
 
         if (isSuccess)
         {
             Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>{roomName}：部屋に入りました");
+            infoPanel.ShowRoomName(roomName);
+            chatManager.SetUserName(playerInfo.playerName);
+            chatManager.SetChannel(roomName);
+            //チャットを開始する
+            chatManager.ChatStart();
         }
         else
         {
@@ -59,17 +66,19 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     public void CreateRoom(string roomName, int playerNum)
     {
         loadingImg.SetActive(true);
-        // ルームの参加人数を4人に設定する
+        // ルームの参加人数を設定する
         var roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = playerNum;
         bool isSuccess = PhotonNetwork.CreateRoom(roomName, roomOptions, TypedLobby.Default);
-        GetComponent<InfoPanel>().ShowRoomName(roomName);
-        chatManager.SetUserName(playerInfo.playerName);
-        chatManager.SetChannel(roomName);
 
         if (isSuccess)
         {
             Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>部屋を作りました。：{roomName}");
+            infoPanel.ShowRoomName(roomName);
+            chatManager.SetUserName(playerInfo.playerName);
+            chatManager.SetChannel(roomName);
+            //チャットを開始する
+            chatManager.ChatStart();
         }
         else
         {
@@ -77,13 +86,15 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         }
     }
 
-    public void StartMainGame()
+    void InteractableStartButton(bool isMasterClient)
     {
-        if (PhotonNetwork.IsMasterClient)
+        //Debug.Log("isMasterClient:"+isMasterClient);
+        //startButton.interactable = isMasterClient;
+        if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers)
         {
-            PhotonNetwork.CurrentRoom.IsOpen = false;
-            PhotonNetwork.LoadLevel(gameSetting.SceneName);
+            gameStartButton.interactable = isMasterClient;
         }
+
     }
 
     public void LeftRoom()
@@ -94,6 +105,12 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
         chatManager.ClearChatDisplay();
 
+    }
+
+    //マスタークライアントが変更されたときに呼ばれるコールバック
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        InteractableStartButton(PhotonNetwork.IsMasterClient);
     }
 
     // マスターサーバーへの接続が成功した時に呼ばれるコールバック
@@ -125,9 +142,9 @@ public class GameLauncher : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate("NetworkController", Vector3.zero, Quaternion.identity);
         }
 
-        GetComponent<InfoPanel>().InfoPanelSetup();
-        GetComponent<InfoPanel>().ShowPlayerName();
-        GetComponent<InfoPanel>().InteractableStartButton(PhotonNetwork.IsMasterClient);
+        infoPanel.InfoPanelSetup();
+        infoPanel.ShowPlayerName();
+        InteractableStartButton(PhotonNetwork.IsMasterClient);
         loadingImg.SetActive(false);
 
     }
@@ -136,9 +153,9 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>{newPlayer.NickName}が参加しました。");
-        GetComponent<InfoPanel>().ShowPlayerName();
-        GetComponent<InfoPanel>().ShowPlayerNum();
-        GetComponent<InfoPanel>().InteractableStartButton(PhotonNetwork.IsMasterClient);
+        infoPanel.ShowPlayerName();
+        infoPanel.ShowPlayerNum();
+        InteractableStartButton(PhotonNetwork.IsMasterClient);
 
         chatManager.OnUserSubscribed("", newPlayer.NickName);
 
@@ -148,9 +165,9 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>{otherPlayer.NickName}が退出しました。");
-        GetComponent<InfoPanel>().ShowPlayerName();
-        GetComponent<InfoPanel>().ShowPlayerNum();
-        GetComponent<InfoPanel>().InteractableStartButton(PhotonNetwork.IsMasterClient);
+        infoPanel.ShowPlayerName();
+        infoPanel.ShowPlayerNum();
+        InteractableStartButton(PhotonNetwork.IsMasterClient);
 
         chatManager.OnUserUnsubscribed("", otherPlayer.NickName);
 

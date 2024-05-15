@@ -8,11 +8,10 @@ public class CreateRoom : MonoBehaviour
 {
     [SerializeField] TMP_InputField roomInputField;
     [SerializeField] TMP_InputField playerNumInputField;
-    [SerializeField] GameLauncher gameLauncher;
     int num = 2;
     public void OnRoomCreated()
     {
-        gameLauncher.CreateRoom(roomInputField.text, num);
+        GetComponent<GameLauncher>().CreateRoom(roomInputField.text, num);
     }
 
     public void CheckFormat(string textIn)

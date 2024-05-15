@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Chat;
-using Photon.Realtime;
 using Photon.Pun;
 using ExitGames.Client.Photon;
 using TMPro;
@@ -27,13 +26,6 @@ public class ChatManager : MonoBehaviour, IChatClientListener
         command = GetComponent<Command>();
     }
 
-    private void OnEnable()
-    {
-        waitText.SetActive(true);
-        sendButton.interactable = false;
-        ChatStart();
-    }
-
     public void SetUserName(string username)
     {
         this.username = username;
@@ -44,12 +36,18 @@ public class ChatManager : MonoBehaviour, IChatClientListener
         this.channel = channel;
     }
 
+    /// <summary>
+    /// チャットを開始するときに実行する
+    /// </summary>
+    /// <param name="sceneName">移動するシーンの名前</param>
     public void ChatStart()
     {
+        waitText.SetActive(true);
+        sendButton.interactable = false;
         isConnected = true;
         chatClient = new ChatClient(this);
-        //chatClient.ChatRegion = "jp";
-        chatClient.Connect(PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat, PhotonNetwork.AppVersion, new Photon.Chat.AuthenticationValues(username));
+        chatClient.ChatRegion = "ASIA";
+        chatClient.Connect(PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat, PhotonNetwork.AppVersion, new AuthenticationValues(username));
         Debug.Log($"<color=#{0x42F2F5FF:X}>【NetworkInfo】</color>チャットサーバーに接続しています......");
     }
 
