@@ -448,7 +448,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameLabel: {fileID: 7487925381401474914}
-  myCamera: {fileID: 0}
 --- !u!1 &5262206363398063386
 GameObject:
   m_ObjectHideFlags: 0
