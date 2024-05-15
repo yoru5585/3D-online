@@ -6,4 +6,5 @@ using UnityEngine;
 public class PlayerInfo_s : ScriptableObject
 {
     [Header("プレイヤー名")] public string playerName;
+    [Header("プレイヤーID")] public int playerID;
 }

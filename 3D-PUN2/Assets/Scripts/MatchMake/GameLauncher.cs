@@ -9,15 +9,20 @@ public class GameLauncher : MonoBehaviourPunCallbacks
 {
     [SerializeField] PlayerInfo_s playerInfo;
 
-    [SerializeField] GameObject myPlayerAvatar;
+    [SerializeField] GameSetting gameSetting;
+
+    [SerializeField] GameObject loadingImg;
 
     [SerializeField] ChatManager chatManager;
 
-    [SerializeField] GameObject loadingImg;
+    GameObject myPlayerAvatar;
+
     private void Awake()
     {
         // PhotonServerSettingsの設定内容を使ってマスターサーバーへ接続する
         PhotonNetwork.ConnectUsingSettings();
+        //シーン移動に必要？
+        PhotonNetwork.AutomaticallySyncScene = true;
         loadingImg.SetActive(true);
     }
 
@@ -72,6 +77,15 @@ public class GameLauncher : MonoBehaviourPunCallbacks
         }
     }
 
+    public void StartMainGame()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.LoadLevel(gameSetting.SceneName);
+        }
+    }
+
     public void LeftRoom()
     {
         //部屋から抜ける
@@ -95,7 +109,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         // ランダムな座標に自身のアバター（ネットワークオブジェクト）を生成する
-        var position = new Vector3(0, 1, 0);
+        var position = new Vector3(0, 1, 10);
         myPlayerAvatar = PhotonNetwork.Instantiate("PlayerAvatar", position, Quaternion.identity);
 
         if (PhotonNetwork.IsMasterClient)
@@ -107,6 +121,8 @@ public class GameLauncher : MonoBehaviourPunCallbacks
 
             // ルームのカスタムプロパティとして開始時刻を設定
             PhotonNetwork.CurrentRoom.SetCustomProperties(startTimeProps);
+            //networkmanagerも生成する
+            PhotonNetwork.Instantiate("NetworkController", Vector3.zero, Quaternion.identity);
         }
 
         GetComponent<InfoPanel>().InfoPanelSetup();

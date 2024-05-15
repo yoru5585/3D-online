@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6147,7 +6147,7 @@ Transform:
   m_GameObject: {fileID: 1706259327}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.26879656, y: 2.565871, z: 3.1239152}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6200,9 +6200,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInfo: {fileID: 11400000, guid: 154c137d9a4b2ea40955ee83c1500922, type: 2}
-  myPlayerAvatar: {fileID: 0}
-  chatManager: {fileID: 803052166}
+  gameSetting: {fileID: 11400000, guid: 5e2ef95dcd53bae4eb100aeaf2483d4b, type: 2}
   loadingImg: {fileID: 446150592}
+  chatManager: {fileID: 803052166}
 --- !u!114 &1706259332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7552,7 +7552,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2110717977}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1706259331}
+        m_TargetAssemblyTypeName: GameLauncher, Assembly-CSharp
+        m_MethodName: StartMainGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2110717977
 MonoBehaviour:
   m_ObjectHideFlags: 0
