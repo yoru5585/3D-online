@@ -21,7 +21,8 @@ public class ReplacePlayerAvatar : MonoBehaviour
     //プレイヤーのネットワークオブジェクトを生成しダミーアバターと置き換える
     void ReplaceMyAvater()
     {
-        GameObject myAvatar = PhotonNetwork.Instantiate("PlayerAvatar", Vector3.zero, Quaternion.identity);
+        GameObject myAvatar = PhotonNetwork.Instantiate("GamePlayerAvatar", Vector3.zero, Quaternion.identity);
+        myAvatar.GetComponent<PlayerController>().SetMyCamera(Camera.GetComponent<Camera>());
         myAvatar.transform.position = PlayerAvatarList[Resources.Load<PlayerInfo_s>("PlayerInfo").playerID].transform.position;
         Camera.transform.parent = myAvatar.transform;
         Camera.transform.position = new Vector3(0, 2.4f, 0);

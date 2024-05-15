@@ -432,7 +432,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d7bcfef0ab15d43a74675730520874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  view: {fileID: 2026926196375981271}
   rigidBody: {fileID: 1053587213262676295}
   walkSpeed: 4
 --- !u!114 &2026926196375981271

@@ -8,17 +8,7 @@ public class PlayerAvatarController : MonoBehaviourPunCallbacks
 {
     // プレイヤー名のネットワークプロパティを定義する
 
-    [SerializeField]
-    private PlayerAvatarView view;
-
 	bool isStop = false;
-
-
-    private void Start()
-    {
-        // プレイヤー名とプレイヤーIDを表示する
-        view.SetNickName($"{photonView.Owner.NickName}({photonView.OwnerActorNr})");
-    }
 
 	[SerializeField]
 	private Rigidbody rigidBody;
