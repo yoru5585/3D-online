@@ -7,7 +7,7 @@ using Photon.Realtime;
 public class SynVariable : MonoBehaviourPunCallbacks
 {
     public static SynVariable instance;
-    public VariableStorage MyStorage;
+    public VariableStorage MyStorage = new VariableStorage();
 
     private void Awake()
     {
@@ -18,7 +18,6 @@ public class SynVariable : MonoBehaviourPunCallbacks
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
-        MyStorage = new VariableStorage();
     }
 
     void CheckInstance()
