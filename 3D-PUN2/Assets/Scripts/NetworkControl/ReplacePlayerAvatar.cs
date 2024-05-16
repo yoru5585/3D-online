@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine.UIElements;
 
 public class ReplacePlayerAvatar : MonoBehaviour
 {
@@ -16,8 +15,6 @@ public class ReplacePlayerAvatar : MonoBehaviour
     private void Start()
     {
         ReplaceMyAvater();
-        Debug.Log("sampleShortInt"+GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<SynVariable>().MyStorage.SampleShortInt);
-        Debug.Log("serverTime"+ServerTime.GetServerTime());
     }
 
     //プレイヤーのネットワークオブジェクトを生成しダミーアバターと置き換える

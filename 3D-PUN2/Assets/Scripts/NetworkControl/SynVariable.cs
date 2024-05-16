@@ -7,7 +7,7 @@ using Photon.Realtime;
 public class SynVariable : MonoBehaviourPunCallbacks
 {
     public static SynVariable instance;
-    public VariableStorage MyStorage = new VariableStorage();
+    public short SampleShortInt = 0;
 
     private void Awake()
     {
@@ -33,10 +33,9 @@ public class SynVariable : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void Rpc(VariableStorage storage)
+    void Rpc(short num)
     {
-        MyStorage = storage;
-        Debug.Log(MyStorage.SampleShortInt);
+        SampleShortInt = num;
     }
 
     /// <summary>
@@ -44,6 +43,6 @@ public class SynVariable : MonoBehaviourPunCallbacks
     /// </summary>
     public void RpcSendVariable()
     {
-        photonView.RPC(nameof(Rpc), RpcTarget.All, MyStorage);
+        photonView.RPC(nameof(Rpc), RpcTarget.All, SampleShortInt);
     }
 }

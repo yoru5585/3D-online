@@ -23,6 +23,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
     {
         // PhotonServerSettingsの設定内容を使ってマスターサーバーへ接続する
         PhotonNetwork.ConnectUsingSettings();
+
         //シーン移動に必要？
         PhotonNetwork.AutomaticallySyncScene = true;
         loadingImg.SetActive(true);
@@ -152,9 +153,7 @@ public class GameLauncher : MonoBehaviourPunCallbacks
             // ルームのカスタムプロパティとして開始時刻を設定
             PhotonNetwork.CurrentRoom.SetCustomProperties(startTimeProps);
             //networkmanagerも生成する
-            GameObject tmp = PhotonNetwork.Instantiate("NetworkController", Vector3.zero, Quaternion.identity);
-            tmp.GetComponent<SynVariable>().MyStorage.SampleShortInt = 10;
-            tmp.GetComponent<SynVariable>().RpcSendVariable();
+            PhotonNetwork.Instantiate("NetworkController", Vector3.zero, Quaternion.identity);
             
         }
 

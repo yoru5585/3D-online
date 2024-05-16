@@ -5,5 +5,5 @@ using UnityEngine;
 public class VariableStorage
 {
     //“¯Šú‚µ‚½‚¢•Ï”‚ğ‚±‚±‚É‘‚­
-    public short SampleShortInt { get; set; } = 0;
+    public int SampleShortInt { get; set; } = 0;
 }
