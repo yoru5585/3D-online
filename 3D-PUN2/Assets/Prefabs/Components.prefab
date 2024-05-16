@@ -248,6 +248,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7544242746629316024, guid: 02e55cdea841e9e4390aedfbfa546014, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7786476166294029671, guid: 02e55cdea841e9e4390aedfbfa546014, type: 3}
       propertyPath: infoPanel
       value: 
@@ -501,6 +505,10 @@ PrefabInstance:
     - target: {fileID: 7909069731644246110, guid: bdcca270940a5fc4e933b230340b464e, type: 3}
       propertyPath: m_Camera
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909069731644246110, guid: bdcca270940a5fc4e933b230340b464e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8016680464541763291, guid: bdcca270940a5fc4e933b230340b464e, type: 3}
       propertyPath: m_Pivot.x

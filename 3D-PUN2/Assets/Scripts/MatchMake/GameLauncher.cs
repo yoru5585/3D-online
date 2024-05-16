@@ -152,7 +152,10 @@ public class GameLauncher : MonoBehaviourPunCallbacks
             // ルームのカスタムプロパティとして開始時刻を設定
             PhotonNetwork.CurrentRoom.SetCustomProperties(startTimeProps);
             //networkmanagerも生成する
-            PhotonNetwork.Instantiate("NetworkController", Vector3.zero, Quaternion.identity);
+            GameObject tmp = PhotonNetwork.Instantiate("NetworkController", Vector3.zero, Quaternion.identity);
+            tmp.GetComponent<SynVariable>().MyStorage.SampleShortInt = 10;
+            tmp.GetComponent<SynVariable>().RpcSendVariable();
+            
         }
 
         infoPanel.InfoPanelSetup();

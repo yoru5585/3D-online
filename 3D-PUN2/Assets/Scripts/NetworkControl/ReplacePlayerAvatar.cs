@@ -16,21 +16,26 @@ public class ReplacePlayerAvatar : MonoBehaviour
     private void Start()
     {
         ReplaceMyAvater();
+        Debug.Log("sampleShortInt"+GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<SynVariable>().MyStorage.SampleShortInt);
+        Debug.Log("serverTime"+ServerTime.GetServerTime());
     }
 
     //プレイヤーのネットワークオブジェクトを生成しダミーアバターと置き換える
     void ReplaceMyAvater()
     {
         GameObject myAvatar = PhotonNetwork.Instantiate("GamePlayerAvatar", Vector3.zero, Quaternion.identity);
-        myAvatar.GetComponent<PlayerController>().SetMyCamera(Camera.GetComponent<Camera>());
         myAvatar.transform.position = PlayerAvatarList[Resources.Load<PlayerInfo_s>("PlayerInfo").playerID].transform.position;
+
+        //カメラをセット
+        myAvatar.GetComponent<PlayerController>().SetMyCamera(Camera.transform.GetChild(0).gameObject.GetComponent<Camera>());
         Camera.transform.parent = myAvatar.transform;
-        Camera.transform.position = new Vector3(0, 2.4f, 0);
+        Camera.transform.localPosition = new Vector3(0, 2.4f, 0);
+
+        //リストの中身を削除
         foreach (GameObject obj in PlayerAvatarList)
         {
             Destroy(obj);
         }
+        PlayerAvatarList.Clear();
     }
-
-
 }
