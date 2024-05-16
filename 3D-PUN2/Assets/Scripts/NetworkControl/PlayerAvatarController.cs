@@ -6,7 +6,6 @@ using Photon.Realtime;
 
 public class PlayerAvatarController : MonoBehaviourPunCallbacks
 {
-    // プレイヤー名のネットワークプロパティを定義する
 
 	bool isStop = false;
 

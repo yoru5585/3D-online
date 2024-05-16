@@ -331,6 +331,7 @@ GameObject:
   - component: {fileID: 250083441}
   - component: {fileID: 250083443}
   - component: {fileID: 250083445}
+  - component: {fileID: 250083446}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -395,6 +396,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Camera: {fileID: 1900415944}
   distance: 1
+--- !u!114 &250083446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250083439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2eba895d89d6bd4c99070b645d8bf36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsTestPlaying: 0
 --- !u!1001 &294301854
 PrefabInstance:
   m_ObjectHideFlags: 0

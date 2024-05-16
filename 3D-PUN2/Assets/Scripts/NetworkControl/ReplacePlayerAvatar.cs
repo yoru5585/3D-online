@@ -35,4 +35,14 @@ public class ReplacePlayerAvatar : MonoBehaviour
         }
         PlayerAvatarList.Clear();
     }
+
+    public List<GameObject> GetPlayerAvatarList()
+    {
+        return PlayerAvatarList;
+    }
+
+    public GameObject GetCameraObj()
+    {
+        return Camera;
+    }
 }
