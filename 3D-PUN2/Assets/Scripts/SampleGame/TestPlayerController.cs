@@ -76,4 +76,9 @@ public class TestPlayerController : MonoBehaviour
     {
         player_rg = rd;
     }
+
+    public void SetIsStop(bool b)
+    {
+        IsStop = b;
+    }
 }
