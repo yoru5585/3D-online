@@ -12,7 +12,7 @@ public static class ServerTime
     /// </summary>
     public static float GetServerTime()
     {
-        int currentTime = PhotonNetwork.ServerTimestamp;
+        float currentTime = PhotonNetwork.ServerTimestamp;
         return currentTime;
     }
 }
