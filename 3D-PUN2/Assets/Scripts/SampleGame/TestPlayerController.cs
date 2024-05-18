@@ -8,6 +8,7 @@ public class TestPlayerController : BasicPlayerController
     private void Start()
     {
         myCamera = Camera.main;
+        player_rg = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -15,12 +16,9 @@ public class TestPlayerController : BasicPlayerController
     {
         if (IsStop) return;
 
+        Jump();
         Move();
         CameraControll();
-    }
-    public void SetRigidbody(Rigidbody rd)
-    {
-        player_rg = rd;
     }
 
     public void SetIsStop(bool b)

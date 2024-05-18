@@ -31,22 +31,17 @@ public class TestPlay : MonoBehaviour
             myCamera.transform.parent = dammyPlayers[index].transform;
             myCamera.transform.localPosition = new Vector3(0, 2.4f, 0);
 
-            //rigidbodyをセット
-            GetComponent<TestPlayerController>().SetRigidbody(dammyPlayers[index].GetComponent<Rigidbody>());
-
             //現在操作中のプレイヤーの番号を表示
             indexText.text = index.ToString();
 
             //デバッグ用キャンパス表示
             debugLogCanvas.SetActive(true);
 
-            //動けるようにする
-            GetComponent<TestPlayerController>().SetIsStop(false);
-        }
-        else
-        {
-            //動けないようにする
-            GetComponent<TestPlayerController>().SetIsStop(true);
+            //1P以外動けないようにする
+            for (int i = 1; i < dammyPlayers.Count; i++)
+            {
+                dammyPlayers[i].GetComponent<TestPlayerController>().SetIsStop(true);
+            }
         }
     }
 
@@ -58,8 +53,19 @@ public class TestPlay : MonoBehaviour
 
         myCamera.transform.parent = dammyPlayers[index].transform;
         myCamera.transform.localPosition = new Vector3(0, 2.4f, 0);
-        GetComponent<TestPlayerController>().SetRigidbody(dammyPlayers[index].GetComponent<Rigidbody>());
-
+        for (int i = 0; i < dammyPlayers.Count; i++)
+        {
+            if (i == index)
+            {
+                dammyPlayers[index].GetComponent<TestPlayerController>().SetIsStop(false);
+            }
+            else
+            {
+                dammyPlayers[i].GetComponent<TestPlayerController>().SetIsStop(true);
+            }
+            
+        }
+        
         //現在操作中のプレイヤーの番号を表示
         indexText.text = index.ToString();
     }

@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2eba895d89d6bd4c99070b645d8bf36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTestPlaying: 0
+  IsTestPlaying: 1
   debugLogCanvas: {fileID: 943618029}
   indexText: {fileID: 827148789}
 --- !u!1001 &294301854
@@ -317,6 +317,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2545770731094093695, guid: e0f5a3efb54d19c42ac4e63de10f7806, type: 3}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3033886320236315327, guid: e0f5a3efb54d19c42ac4e63de10f7806, type: 3}
       propertyPath: m_Name
       value: DammyPlayer1
@@ -489,7 +493,7 @@ GameObject:
   - component: {fileID: 383957566}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1315,6 +1319,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 57351426070129374, guid: e0f5a3efb54d19c42ac4e63de10f7806, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2545770731094093695, guid: e0f5a3efb54d19c42ac4e63de10f7806, type: 3}
+      propertyPath: m_Drag
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3033886320236315327, guid: e0f5a3efb54d19c42ac4e63de10f7806, type: 3}

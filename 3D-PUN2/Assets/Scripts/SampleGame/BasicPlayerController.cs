@@ -6,15 +6,15 @@ using Photon.Pun;
 public class BasicPlayerController : MonoBehaviour
 {
     public Rigidbody player_rg;
-    public Vector3 movingDirecion;
-    public Vector3 movingVelocity;
-    public float speedMagnification = 10.0f;
+    Vector3 movingDirecion;
+    Vector3 movingVelocity;
+    [SerializeField] float speedMagnification = 10.0f;
 
     public bool IsStop = false;
     public bool IsCameraReverse = false;
 
-    public Vector2 newAngle = Vector2.zero;
-    public Vector2 lastMousePosition = Vector2.zero;
+    Vector2 newAngle = Vector2.zero;
+    Vector2 lastMousePosition = Vector2.zero;
     public Vector2 rotationSpeed = new Vector2(0.2f, 0.2f);
     public Camera myCamera;
 
@@ -55,6 +55,29 @@ public class BasicPlayerController : MonoBehaviour
 
             myCamera.transform.localEulerAngles = newAngle;
             lastMousePosition = Input.mousePosition;
+        }
+    }
+
+    bool jumpNow;
+    float jumpPower = 10; //調整必要 例850
+    private void OnCollisionEnter(Collision other)
+    {
+        if (jumpNow == true)
+        {
+            if (other.gameObject.CompareTag("Ground"))
+            {
+                jumpNow = false;
+            }
+        }
+    }
+
+    public void Jump()
+    {
+        if (jumpNow == true) return;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            player_rg.AddForce(transform.up * jumpPower, ForceMode.Impulse);
+            jumpNow = true;
         }
     }
 }
