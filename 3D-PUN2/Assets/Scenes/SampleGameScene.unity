@@ -309,6 +309,7 @@ MonoBehaviour:
   IsTestPlaying: 0
   debugLogCanvas: {fileID: 943618029}
   indexText: {fileID: 827148789}
+  dammyNetworkController: {fileID: 5430896225878164272, guid: e467c6f9a747df641bc56abfec68bde7, type: 3}
 --- !u!1001 &294301854
 PrefabInstance:
   m_ObjectHideFlags: 0

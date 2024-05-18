@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Photon.Pun;
 
 public class TestPlay : MonoBehaviour
 {
     [SerializeField] bool IsTestPlaying = false;
     [SerializeField] GameObject debugLogCanvas;
     [SerializeField] TMP_Text indexText;
+    [SerializeField] GameObject dammyNetworkController;
     GameObject myCamera;
     List<GameObject> dammyPlayers;
     ReplacePlayerAvatar replacePlayerAvatar;
@@ -16,6 +18,10 @@ public class TestPlay : MonoBehaviour
     {
         if (IsTestPlaying)
         {
+            PhotonNetwork.OfflineMode = true;
+            //ダミーのネットワークコントローラを生成
+            Instantiate(dammyNetworkController);
+
             //参照
             replacePlayerAvatar = GetComponent<ReplacePlayerAvatar>();
 

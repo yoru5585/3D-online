@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2805442666672527055}
   - component: {fileID: 57451940900752257}
   - component: {fileID: 2040481587613740554}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 6189769581469738678}
   - component: {fileID: 7487925381401474914}
   - component: {fileID: 6188688143608497285}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   - component: {fileID: 1700290308712404494}
   - component: {fileID: 4790070795117248770}
   - component: {fileID: 2026926196375981271}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerAvatar
   m_TagString: NetworkPlayer
   m_Icon: {fileID: 0}
@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 3212404795375308089}
   - component: {fileID: 7335636341936336027}
   - component: {fileID: 6276717353342462508}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -559,7 +559,7 @@ GameObject:
   - component: {fileID: 1561371342771351658}
   - component: {fileID: 830767618906448751}
   - component: {fileID: 5030656087667543212}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -656,7 +656,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7571037926909222527}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}

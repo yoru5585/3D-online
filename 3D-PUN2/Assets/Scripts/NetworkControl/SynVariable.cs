@@ -48,6 +48,10 @@ public class SynVariable : MonoBehaviourPunCallbacks
     /// </summary>
     public void RpcSendVariable()
     {
+        if (PhotonNetwork.OfflineMode)
+        {
+            return;
+        }
         photonView.RPC(nameof(Rpc), RpcTarget.All, args);
     }
 }
