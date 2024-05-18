@@ -43,6 +43,11 @@ public class TestPlay : MonoBehaviour
             //動けるようにする
             GetComponent<TestPlayerController>().SetIsStop(false);
         }
+        else
+        {
+            //動けないようにする
+            GetComponent<TestPlayerController>().SetIsStop(true);
+        }
     }
 
     //ほかのプレイヤー視点に切り替える
