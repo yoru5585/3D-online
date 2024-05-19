@@ -16,7 +16,6 @@ public class TestPlayerController : BasicPlayerController
     {
         if (IsStop) return;
 
-        Jump();
         Move();
         CameraControll();
     }

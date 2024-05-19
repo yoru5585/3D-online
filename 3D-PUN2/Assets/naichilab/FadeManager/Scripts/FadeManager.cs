@@ -139,4 +139,6 @@ public class FadeManager : MonoBehaviour
 
 		this.isFading = false;
 	}
+
+	/*! FadeManager | MIT License | https://github.com/naichilab/Unity-FadeManager/blob/master/LICENSE */
 }
