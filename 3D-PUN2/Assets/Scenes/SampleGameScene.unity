@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2eba895d89d6bd4c99070b645d8bf36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsTestPlaying: 1
+  IsTestPlaying: 0
   debugLogCanvas: {fileID: 943618029}
   indexText: {fileID: 827148789}
   dammyNetworkController: {fileID: 5430896225878164272, guid: e467c6f9a747df641bc56abfec68bde7, type: 3}
