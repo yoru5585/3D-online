@@ -23,6 +23,17 @@ public class NetworkDisconnect : MonoBehaviourPunCallbacks
     /// </summary>
     public void RpcEndGame()
     {
-        photonView.RPC(nameof(Rpc), RpcTarget.All);
+        if (PhotonNetwork.OfflineMode)
+        {
+            Camera.main.transform.parent = null;
+            PhotonNetwork.Disconnect();
+            Debug.Log($"<color=#{0x42F2F5FF:X}>ÅyNetworkInfoÅz</color>ÉTÅ[ÉoÅ[Ç©ÇÁêÿífÇµÇ‹ÇµÇΩÅB");
+            FadeManager.Instance.LoadScene("TitleScene", 1f);
+        }
+        else
+        {
+            photonView.RPC(nameof(Rpc), RpcTarget.All);
+        }
+        
     }
 }

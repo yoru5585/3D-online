@@ -7,7 +7,12 @@ using Photon.Realtime;
 public class SynVariable : MonoBehaviourPunCallbacks
 {
     public static SynVariable instance;
-    public short SampleShortInt = 0;
+    // RPCメソッドの引数 object[] の配列にする
+    public object[] args = new object[]{
+            "RPC message",          // 第1引数 : string msg
+            new byte[] {1, 2, 3}    // 第2引数 : byte[] data
+            };
+
 
     private void Awake()
     {
@@ -33,9 +38,9 @@ public class SynVariable : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void Rpc(short num)
+    void Rpc(object [] obj)
     {
-        SampleShortInt = num;
+        args = obj;
     }
 
     /// <summary>
@@ -43,6 +48,10 @@ public class SynVariable : MonoBehaviourPunCallbacks
     /// </summary>
     public void RpcSendVariable()
     {
-        photonView.RPC(nameof(Rpc), RpcTarget.All, SampleShortInt);
+        if (PhotonNetwork.OfflineMode)
+        {
+            return;
+        }
+        photonView.RPC(nameof(Rpc), RpcTarget.All, args);
     }
 }

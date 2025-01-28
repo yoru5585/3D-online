@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 803701231782231355}
   - component: {fileID: 1128295232739353195}
   - component: {fileID: 8373554571511556508}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 3610128666798292341}
   - component: {fileID: 6384373193789165423}
   - component: {fileID: 8482169569307815774}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3789958956290839906}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 2150055239179579678}
   - component: {fileID: 4662958033546676751}
   - component: {fileID: 7015241092598379886}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 3203641852165970207}
   - component: {fileID: 7306787170969854449}
   - component: {fileID: 1082377481139516875}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GamePlayerAvatar
   m_TagString: NetworkPlayer
   m_Icon: {fileID: 0}
@@ -527,9 +527,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2f7a9d5897ed34cbc7c4ee80d07a18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player_rg: {fileID: 0}
   speedMagnification: 10
+  IsStop: 0
   IsCameraReverse: 1
   rotationSpeed: {x: 0.2, y: 0.2}
+  myCamera: {fileID: 0}
 --- !u!1 &8177181469660100943
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,7 +545,7 @@ GameObject:
   - component: {fileID: 1623418106729852148}
   - component: {fileID: 8280125510543042701}
   - component: {fileID: 1003564462342523786}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
